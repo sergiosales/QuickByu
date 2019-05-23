@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace QuickByu.Dominio.Entidades
 {
-    public class Usuario
+    public class Usuario:Entidade
     {
         public int Id { get; set; }
         public string email { get; set; }
@@ -17,5 +17,13 @@ namespace QuickByu.Dominio.Entidades
         /// </summary>
 
         public ICollection<Pedido>Pedidos { get; set; }
+
+        public override void Validate()
+        {
+            if (string.IsNullOrEmpty(email))
+                AdicionarCritica("Email não foi informado");
+            if (string.IsNullOrEmpty(senha))
+                AdicionarCritica("senha não foi informada");
+        }
     }
 } 

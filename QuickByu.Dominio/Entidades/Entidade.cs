@@ -1,18 +1,35 @@
 ﻿
 
+using System.Collections.Generic;
+using System.Linq;
+
 namespace QuickByu.Dominio.Entidades
 {
-  public abstract class Entidade
+    public abstract class Entidade
     {
-        public int Id { get; set; }
-        public string email { get; set; }
-        public string senha { get; set; }
-        public string nome { get; set; }
-        public string sobrenome{ get; set; }
+        public List<string> _mensagemValidacao { get; set; }
+        private List<string> mensagemValidacao
+        { get { return _mensagemValidacao ?? (_mensagemValidacao = new List<string>()); } }
+
+        protected void LimparMensagens() {
+            mensagemValidacao.Clear();
+
+        }
+
+        protected void AdicionarCritica(string mensagem) {
+            mensagemValidacao.Add(mensagem);
+
+        }
+
+        
+        public abstract void Validate();
+
+        protected bool EhValido
+        {
+            get { return !MensagemValidacao.Any(); }
 
 
-
-
+        }
 
     }
 }
